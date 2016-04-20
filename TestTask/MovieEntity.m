@@ -45,18 +45,19 @@
         }];
     });
     
+    __block long long completedBytesTemp = 0;
     self.downloadMovieTask = [[ServerManager manager] getMovieWithURL:self.downloadURL progress:^(NSProgress *downloadProgress) {
         self.totalBytes = downloadProgress.totalUnitCount;
         self.completedBytes = downloadProgress.completedUnitCount;
         self.fractionCompleted = downloadProgress.fractionCompleted;
         
-        static int tick = 0;
-        if (tick++ > 33) { // 'cause I want :] , and I know that it's a KOCTbIJIb
-            tick = 0;
+        if (self.completedBytes - completedBytesTemp > 1048576) { // 'cause I want :] , and I know that it's a KOCTbIJIb
+            completedBytesTemp = self.completedBytes;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate movieDidUpdate:self];
                 
-            });        }
+            });
+        }
     } completion:^{
         self.status = MovieStatusCompleted;
         [self.delegate movieDidUpdate:self];
