@@ -11,6 +11,8 @@
 #import "ServerManager.h"
 #import "MovieEntity.h"
 
+#define QUEUE_COUNT 10
+
 @interface ViewController () <UITableViewDataSource, MovieEntityDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -80,7 +82,7 @@
     
     self.allDownloadsEnable = !self.allDownloadsEnable;
     
-    while (self.allDownloadsEnable && !self.allDownloadsCompleted && [self.downloadsQueue count] < 2) {
+    while (self.allDownloadsEnable && !self.allDownloadsCompleted && [self.downloadsQueue count] < QUEUE_COUNT) {
         [self p_updateDownloadQueue];
     }
     
