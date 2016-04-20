@@ -51,7 +51,7 @@
         self.completedBytes = downloadProgress.completedUnitCount;
         self.fractionCompleted = downloadProgress.fractionCompleted;
         
-        if (self.completedBytes - completedBytesTemp > 1048576) { // 'cause I want :] , and I know that it's a KOCTbIJIb
+        if (self.completedBytes - completedBytesTemp > 1048576) { // (1 MB) 'cause I want :] , and I know that it's a KOCTbIJIb
             completedBytesTemp = self.completedBytes;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.delegate movieDidUpdate:self];
